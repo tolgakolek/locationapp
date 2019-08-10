@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="LocationApp.Service.Services.DeviceUserService" CodeBehind="DeviceUserService.svc.cs" %>

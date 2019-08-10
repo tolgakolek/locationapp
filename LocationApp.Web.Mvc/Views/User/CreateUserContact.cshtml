@@ -1,0 +1,176 @@
+﻿@model List<LocationApp.Data.Dto.UserContactDto>
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Css.cshtml")
+}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Kullanıcı İletişim Bilgileri</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12">
+                            <label style="padding-top:10px">Kullanıcı :</label>
+                        </div>
+                        <div class="col-md-9 col-lg-9 col-sm-9 col-xs-12">
+                            @Html.DropDownList("UserID", new SelectList(ViewBag.Users, "UserID", "FullName", 0), new { @class = "form-control", @onchange = "dropValidation();" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12">
+                            <label style="padding-top:10px">İletişim :</label>
+                        </div>
+                        <div class="col-md-9 col-lg-9 col-sm-9 col-xs-12">
+                            @Html.DropDownList("UserContactTypeID", new SelectList(ViewBag.UserContactTypes, "UserContactTypeID", "TypeName", 0), new { @class = "form-control", @onchange = "dropValidation();" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12">
+                            <label style="padding-top:10px">Bilgi :</label>
+                        </div>
+                        <div class="col-md-9 col-lg-9 col-sm-9 col-xs-12">
+                            <input id="Contact" name="Contact" type="text" class="item form-control" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-9 col-sm-9 col-xs-12">
+                            <button class="btn btn-success pull-right" name="save" onclick="Add()"><i class="fa fa-plus-circle"></i> Kaydet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>İletişim Bilgileri<small></small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <p class="text-muted font-13 m-b-30">
+                        </p>
+                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Kullanıcılar</th>
+                                    <th>İletişim Türleri</th>
+                                    <th>İletişim Bilgisi</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.UserDto.Name</td>
+                                        <td>@item.UserContactTypeDto.TypeName</td>
+                                        <td>@item.Contact</td>
+                                        <td>
+                                            <a href="/UserContactType/Edit/@item.UserContactID" class="btn btn-round btn-danger"><i class="fa fa-edit fa-hover"></i><span class="text-muted"></span></a>
+                                            <button type="button" onclick="Remove(@item.UserContactID)" class="btn btn-round btn-info"><i class="fa fa-trash fa-hover"></i><span class="text-muted"></span></button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+<!-- Modal -->
+@section Scripts{
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Js.cshtml")
+    <script>
+        $(document).ready(function () {
+            $('#UserID').select2();
+            $('#UserContactTypeID').select2();
+            var UserID = $("#UserID").val();
+            var UserContactTypeID = $("#UserContactTypeID").val();
+
+            if (UserID != 0 && UserContactTypeID != 0 ) {
+                $("button[name=save]").prop('disabled', false);
+            }
+            else {
+                $("button[name=save]").prop('disabled', true);
+            }
+        });
+        function dropValidation() {
+            var UserID = $("#UserID").val();
+            var UserContactTypeID = $("#UserContactTypeID").val();
+            var contact = $("#Contact").val();
+            if (UserID != 0 && UserContactTypeID != 0) {
+                $("button[name=save]").prop('disabled', false);
+            }
+            else {
+                $("button[name=save]").prop('disabled', true);
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        function Add() {
+            var userID = $("#UserID").val();
+            var userContactTypeID = $("#UserContactTypeID").val();
+            var contact = $("#Contact").val();
+            if (contact == null) {
+                alert("Lütfen iletişim bilgisini giriniz !");
+                $("#Contact").focus();
+                return false;
+            }
+            $.ajax({
+                url: '/User/AddUserContact',
+                type: "GET",
+                dataType: "json",
+                data: { userID: userID, userContactTypeID: userContactTypeID, contact: contact },
+                success: function (result) {
+                    if (result.Result) {
+                        alert("İşlem Başarılı");
+                        location.reload();
+                    } else {
+                        alert(result.ResultDescription);
+                    }
+                }
+            });
+        }
+
+        function Remove(Id) {
+            var con = confirm("Silmek istediğinize emin misiniz ?");
+            if (con) {
+                $.ajax({
+                    url: '/User/RemoveUserContact',
+                    type: "POST",
+                    dataType: "json",
+                    data: { Id: Id },
+                    success: function (result) {
+                        if (result.Result) {
+                            alert("İşlem Başarılı");
+                            location.reload();
+                        } else {
+                            alert(result.ResultDescription);
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+}

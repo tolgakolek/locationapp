@@ -1,0 +1,233 @@
+﻿@model LocationApp.Data.Dto.DeviceDto
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles{
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Css.cshtml")
+
+}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Cihaz</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Cihaz<small></small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    @using (Html.BeginForm("Create", "Device", FormMethod.Post, new { @class = "form-horizontal form-label-left" }))
+                    {
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            Cizah Türü <span class="required">*</span>
+                        </label>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownListFor(model => model.DeviceTypeID, new SelectList(ViewBag.DeviceTypes, "DeviceTypeID", "Name", 0), new { @class = "form-control", @onchange = "dropValidation()" })
+                            </div>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal1"><i class="fa fa-plus"></i></button>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                                Cihaz Başlık : <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gps">
+                                Cihaz Özellikleri : <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.Properties, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gps">
+                                Cihaz Teknolojisi : <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.Technology, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button name="save" type="submit" class="btn btn-success pull-right">Kaydet</button>
+                                <a href="/Device/List" class="btn btn-primary pull-right" type="button">Listeleye Dön</a>
+                            </div>
+                        </div>
+                    }
+                    <div class="success">
+                        @Html.Raw(ViewBag.Message)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+<!--Device Type Create-->
+<div class="modal fade bs-example-modal-sm" id="modal1" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">Yeni Ünvan</h4>
+            </div>
+            <div class="modal-body">
+                <div class="item form-group">
+                    <label for="inputsm">Cihaz Türü:</label>
+                    @Html.TextBox("Name", "", new { @class = "form-control input-sm", @required = "required", @id = "DeviceModal" })
+                </div>
+                <script>
+                    var validator = new FormValidator();
+                    document.forms[0].onsubmit = function (e) {
+                        var validatorResult = validator.checkAll(this);
+                        return !!validatorResult.valid;
+                    };
+                </script>
+                <div id="Messagetitle"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+                <button type="button" class="btn btn-primary" onclick="AddDeviceType()">Ekle</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--/Device Type Create-->
+
+@section Scripts{
+    <script>
+        $("div.success").fadeIn(100).delay(1500).fadeOut(400);
+        $(document).ready(function () {
+            $('.form-control').prop('selectedIndex', 0);
+
+            $('#DeviceTypeID').select2();
+
+            var DeviceTypeID = $("#DeviceTypeID").val();
+            if (DeviceTypeID != 0) {
+                $("button[name=save]").prop('disabled', false);
+            }
+            else {
+                $("button[name=save]").prop('disabled', true);
+            }
+        });
+        function dropValidation() {
+            var deviceTypeID = $("#DeviceTypeID").val();
+            if (deviceTypeID != 0) {
+                $("button[name=save]").prop('disabled', false);
+            }
+            else {
+                $("button[name=save]").prop('disabled', true);
+            }
+        }
+        $(document).ready(function () {
+            $('#UserID').select2();
+            $('#FloorID').select2();
+            var Floor = $("#FloorID").val();
+            var User = $("#UserID").val();
+            if (Floor != 0 && User != 0) {
+                $("button[name=pair]").prop('disabled', false);
+            }
+            else {
+                $("button[name=pair]").prop('disabled', true);
+            }
+        });
+        function dropValidation1() {
+            $('#UserID').select2();
+            $('#FloorID').select2();
+            var Floor = $("#FloorID").val();
+            var User = $("#UserID").val();
+            if (Floor != 0 && User != 0) {
+                $("button[name=pair]").prop('disabled', false);
+            }
+            else {
+                $("button[name=pair]").prop('disabled', true);
+            }
+        }
+
+        $('#modalbtn .custom-control').on('click', function (event) {
+            var val = $(this).find('input').val();
+            if (val != 1) {
+                $('#FloorID').prop('disabled', 'disabled');
+                $('#UserID').prop('disabled', false);
+            }
+            else {
+                $('#UserID').prop('disabled', 'disabled');
+                $('#FloorID').prop('disabled', false);
+            }
+        });
+        $('input[type=radio][name=customRadio]').change(function () {
+            if (this.value == 1) {
+                $('#FloorID').prop('disabled', 'disabled');
+                $('#UserID').prop('disabled', false);
+            }
+            else if (this.value == 2) {
+                $('#UserID').prop('disabled', 'disabled');
+                $('#FloorID').prop('disabled', false);
+            }
+        });
+    </script>
+    <!-- DeviceTYpe Scripts -->
+    <script type="text/javascript">
+        function AddDeviceType() {
+            var DeviceModalName = $("#DeviceModal").val();
+            if (DeviceModalName != "") {
+                $.ajax({
+                    url: '/Device/AddDeviceType',
+                    type: "POST",
+                    dataType: "json",
+                    data: { name: DeviceModalName },
+                    success: function (result) {
+                        if (result.Result) {
+                            location.reload();
+                        } else {
+                            $("#Messagetitle").html(result.ResultDescription);
+                        }
+                    }
+                });
+            }
+            else {
+                $("#Messagetitle").html("İşlem Başarısız Boş Alan Bırakılamaz");
+            }
+
+        }
+    </script>
+    <!-- /DeviceTYpe Scripts -->
+    <script>
+        function AddDepartment() {
+            var userID = $("#UserID").val();
+            var deviceID = $("#DeviceID").val();
+            var floorID = $("#FloorID").val();
+            $.ajax({
+                url: '/User/AddDepartment',
+                type: "POST",
+                dataType: "json",
+                data: { UserID: userID, DeviceID: deviceID, FloorID: floorID },
+                success: function (result) {
+                    if (result.Result) {
+                        location.reload();
+                    } else {
+                        $("#Messagedep").html(result.ResultDescription);
+                    }
+                }
+            });
+        }
+    </script>
+    <!-- jQuery library -->
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Js.cshtml")
+}
+

@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="locationappModelStoreContainer" CdmEntityContainer="locationappEntities">
+    <EntitySetMapping Name="block">
+      <EntityTypeMapping TypeName="locationappModel.block">
+        <MappingFragment StoreEntitySet="block">
+          <ScalarProperty Name="BlockID" ColumnName="BlockID" />
+          <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Gps" ColumnName="Gps" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="build">
+      <EntityTypeMapping TypeName="locationappModel.build">
+        <MappingFragment StoreEntitySet="build">
+          <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+          <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Adress" ColumnName="Adress" />
+          <ScalarProperty Name="Gps" ColumnName="Gps" />
+          <ScalarProperty Name="Properties" ColumnName="Properties" />
+          <ScalarProperty Name="CampusID" ColumnName="CampusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="campus">
+      <EntityTypeMapping TypeName="locationappModel.campus">
+        <MappingFragment StoreEntitySet="campus">
+          <ScalarProperty Name="CampusID" ColumnName="CampusID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="campussite">
+      <EntityTypeMapping TypeName="locationappModel.campussite">
+        <MappingFragment StoreEntitySet="campussite">
+          <ScalarProperty Name="CampusSiteID" ColumnName="CampusSiteID" />
+          <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+          <ScalarProperty Name="CampusID" ColumnName="CampusID" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="department">
+      <EntityTypeMapping TypeName="locationappModel.department">
+        <MappingFragment StoreEntitySet="department">
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+          <ScalarProperty Name="SubUnitID" ColumnName="SubUnitID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="departmentroom">
+      <EntityTypeMapping TypeName="locationappModel.departmentroom">
+        <MappingFragment StoreEntitySet="departmentroom">
+          <ScalarProperty Name="DepartmentRoomID" ColumnName="DepartmentRoomID" />
+          <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="device">
+      <EntityTypeMapping TypeName="locationappModel.device">
+        <MappingFragment StoreEntitySet="device">
+          <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Properties" ColumnName="Properties" />
+          <ScalarProperty Name="Technology" ColumnName="Technology" />
+          <ScalarProperty Name="DeviceTypeID" ColumnName="DeviceTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="deviceroom">
+      <EntityTypeMapping TypeName="locationappModel.deviceroom">
+        <MappingFragment StoreEntitySet="deviceroom">
+          <ScalarProperty Name="DeviceRoomID" ColumnName="DeviceRoomID" />
+          <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+          <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+          <ScalarProperty Name="LocationX" ColumnName="LocationX" />
+          <ScalarProperty Name="LocationY" ColumnName="LocationY" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="devicetype">
+      <EntityTypeMapping TypeName="locationappModel.devicetype">
+        <MappingFragment StoreEntitySet="devicetype">
+          <ScalarProperty Name="DeviceTypeID" ColumnName="DeviceTypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="deviceuser">
+      <EntityTypeMapping TypeName="locationappModel.deviceuser">
+        <MappingFragment StoreEntitySet="deviceuser">
+          <ScalarProperty Name="DeviceUserID" ColumnName="DeviceUserID" />
+          <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="floor">
+      <EntityTypeMapping TypeName="locationappModel.floor">
+        <MappingFragment StoreEntitySet="floor">
+          <ScalarProperty Name="FloorID" ColumnName="FloorID" />
+          <ScalarProperty Name="BlockID" ColumnName="BlockID" />
+          <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+          <ScalarProperty Name="Map" ColumnName="Map" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mainunit">
+      <EntityTypeMapping TypeName="locationappModel.mainunit">
+        <MappingFragment StoreEntitySet="mainunit">
+          <ScalarProperty Name="MainUnitID" ColumnName="MainUnitID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="room">
+      <EntityTypeMapping TypeName="locationappModel.room">
+        <MappingFragment StoreEntitySet="room">
+          <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+          <ScalarProperty Name="FloorID" ColumnName="FloorID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RoomTypeID" ColumnName="RoomTypeID" />
+          <ScalarProperty Name="Map" ColumnName="Map" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roomtype">
+      <EntityTypeMapping TypeName="locationappModel.roomtype">
+        <MappingFragment StoreEntitySet="roomtype">
+          <ScalarProperty Name="RoomTypeID" ColumnName="RoomTypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="senderrecieverdevicemobilbeacon">
+      <EntityTypeMapping TypeName="locationappModel.senderrecieverdevicemobilbeacon">
+        <MappingFragment StoreEntitySet="senderrecieverdevicemobilbeacon">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="Device_Name_1" ColumnName="Device_Name_1" />
+          <ScalarProperty Name="Device_Name_2" ColumnName="Device_Name_2" />
+          <ScalarProperty Name="Device_Name_3" ColumnName="Device_Name_3" />
+          <ScalarProperty Name="Device_Name_4" ColumnName="Device_Name_4" />
+          <ScalarProperty Name="Device_RSS_1" ColumnName="Device_RSS_1" />
+          <ScalarProperty Name="Device_RSS_2" ColumnName="Device_RSS_2" />
+          <ScalarProperty Name="Device_RSS_3" ColumnName="Device_RSS_3" />
+          <ScalarProperty Name="Device_RSS_4" ColumnName="Device_RSS_4" />
+          <ScalarProperty Name="Device_Distance_1" ColumnName="Device_Distance_1" />
+          <ScalarProperty Name="Device_Distance_2" ColumnName="Device_Distance_2" />
+          <ScalarProperty Name="Device_Distance_3" ColumnName="Device_Distance_3" />
+          <ScalarProperty Name="Device_Distance_4" ColumnName="Device_Distance_4" />
+          <ScalarProperty Name="Point_Location" ColumnName="Point_Location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="senderrecieverdevicemobilwifi">
+      <EntityTypeMapping TypeName="locationappModel.senderrecieverdevicemobilwifi">
+        <MappingFragment StoreEntitySet="senderrecieverdevicemobilwifi">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="Device_Name_1" ColumnName="Device_Name_1" />
+          <ScalarProperty Name="Device_Name_2" ColumnName="Device_Name_2" />
+          <ScalarProperty Name="Device_Name_3" ColumnName="Device_Name_3" />
+          <ScalarProperty Name="Device_Name_4" ColumnName="Device_Name_4" />
+          <ScalarProperty Name="Device_RSS_1" ColumnName="Device_RSS_1" />
+          <ScalarProperty Name="Device_RSS_2" ColumnName="Device_RSS_2" />
+          <ScalarProperty Name="Device_RSS_3" ColumnName="Device_RSS_3" />
+          <ScalarProperty Name="Device_RSS_4" ColumnName="Device_RSS_4" />
+          <ScalarProperty Name="Device_Distance_1" ColumnName="Device_Distance_1" />
+          <ScalarProperty Name="Device_Distance_2" ColumnName="Device_Distance_2" />
+          <ScalarProperty Name="Device_Distance_3" ColumnName="Device_Distance_3" />
+          <ScalarProperty Name="Device_Distance_4" ColumnName="Device_Distance_4" />
+          <ScalarProperty Name="Point_Location" ColumnName="Point_Location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="senderrecieverdevicenodemcuwifi">
+      <EntityTypeMapping TypeName="locationappModel.senderrecieverdevicenodemcuwifi">
+        <MappingFragment StoreEntitySet="senderrecieverdevicenodemcuwifi">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="Device_Name_1" ColumnName="Device_Name_1" />
+          <ScalarProperty Name="Device_Name_2" ColumnName="Device_Name_2" />
+          <ScalarProperty Name="Device_Name_3" ColumnName="Device_Name_3" />
+          <ScalarProperty Name="Device_Name_4" ColumnName="Device_Name_4" />
+          <ScalarProperty Name="Device_RSS_1" ColumnName="Device_RSS_1" />
+          <ScalarProperty Name="Device_RSS_2" ColumnName="Device_RSS_2" />
+          <ScalarProperty Name="Device_RSS_3" ColumnName="Device_RSS_3" />
+          <ScalarProperty Name="Device_RSS_4" ColumnName="Device_RSS_4" />
+          <ScalarProperty Name="Device_Distance_1" ColumnName="Device_Distance_1" />
+          <ScalarProperty Name="Device_Distance_2" ColumnName="Device_Distance_2" />
+          <ScalarProperty Name="Device_Distance_3" ColumnName="Device_Distance_3" />
+          <ScalarProperty Name="Device_Distance_4" ColumnName="Device_Distance_4" />
+          <ScalarProperty Name="Point_Location" ColumnName="Point_Location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="senderrecieverdeviceraspberrybeacon">
+      <EntityTypeMapping TypeName="locationappModel.senderrecieverdeviceraspberrybeacon">
+        <MappingFragment StoreEntitySet="senderrecieverdeviceraspberrybeacon">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="Device_Name_1" ColumnName="Device_Name_1" />
+          <ScalarProperty Name="Device_Name_2" ColumnName="Device_Name_2" />
+          <ScalarProperty Name="Device_Name_3" ColumnName="Device_Name_3" />
+          <ScalarProperty Name="Device_Name_4" ColumnName="Device_Name_4" />
+          <ScalarProperty Name="Device_RSS_1" ColumnName="Device_RSS_1" />
+          <ScalarProperty Name="Device_RSS_2" ColumnName="Device_RSS_2" />
+          <ScalarProperty Name="Device_RSS_3" ColumnName="Device_RSS_3" />
+          <ScalarProperty Name="Device_RSS_4" ColumnName="Device_RSS_4" />
+          <ScalarProperty Name="Device_Distance_1" ColumnName="Device_Distance_1" />
+          <ScalarProperty Name="Device_Distance_2" ColumnName="Device_Distance_2" />
+          <ScalarProperty Name="Device_Distance_3" ColumnName="Device_Distance_3" />
+          <ScalarProperty Name="Device_Distance_4" ColumnName="Device_Distance_4" />
+          <ScalarProperty Name="Point_Location" ColumnName="Point_Location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="site">
+      <EntityTypeMapping TypeName="locationappModel.site">
+        <MappingFragment StoreEntitySet="site">
+          <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Gps" ColumnName="Gps" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="subunit">
+      <EntityTypeMapping TypeName="locationappModel.subunit">
+        <MappingFragment StoreEntitySet="subunit">
+          <ScalarProperty Name="SubUnitID" ColumnName="SubUnitID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MainUnitID" ColumnName="MainUnitID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user">
+      <EntityTypeMapping TypeName="locationappModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SurName" ColumnName="SurName" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="NationID" ColumnName="NationID" />
+          <ScalarProperty Name="UserTitleID" ColumnName="UserTitleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usercontact">
+      <EntityTypeMapping TypeName="locationappModel.usercontact">
+        <MappingFragment StoreEntitySet="usercontact">
+          <ScalarProperty Name="UserContactID" ColumnName="UserContactID" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserContactTypeID" ColumnName="UserContactTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usercontacttype">
+      <EntityTypeMapping TypeName="locationappModel.usercontacttype">
+        <MappingFragment StoreEntitySet="usercontacttype">
+          <ScalarProperty Name="UserContactTypeID" ColumnName="UserContactTypeID" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userdepartment">
+      <EntityTypeMapping TypeName="locationappModel.userdepartment">
+        <MappingFragment StoreEntitySet="userdepartment">
+          <ScalarProperty Name="UserDepartmentID" ColumnName="UserDepartmentID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userlogin">
+      <EntityTypeMapping TypeName="locationappModel.userlogin">
+        <MappingFragment StoreEntitySet="userlogin">
+          <ScalarProperty Name="UserLoginID" ColumnName="UserLoginID" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="IpAdress" ColumnName="IpAdress" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userpassword">
+      <EntityTypeMapping TypeName="locationappModel.userpassword">
+        <MappingFragment StoreEntitySet="userpassword">
+          <ScalarProperty Name="UserPasswordID" ColumnName="UserPasswordID" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userrole">
+      <EntityTypeMapping TypeName="locationappModel.userrole">
+        <MappingFragment StoreEntitySet="userrole">
+          <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
+          <ScalarProperty Name="UserRoleName" ColumnName="UserRoleName" />
+          <ScalarProperty Name="UserRoleDescription" ColumnName="UserRoleDescription" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usertitle">
+      <EntityTypeMapping TypeName="locationappModel.usertitle">
+        <MappingFragment StoreEntitySet="usertitle">
+          <ScalarProperty Name="UserTitleID" ColumnName="UserTitleID" />
+          <ScalarProperty Name="TitleName" ColumnName="TitleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="useruserrole">
+      <EntityTypeMapping TypeName="locationappModel.useruserrole">
+        <MappingFragment StoreEntitySet="useruserrole">
+          <ScalarProperty Name="UserUserRoleID" ColumnName="UserUserRoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

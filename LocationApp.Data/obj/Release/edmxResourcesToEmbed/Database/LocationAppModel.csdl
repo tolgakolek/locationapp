@@ -1,0 +1,735 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="locationappModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="block">
+    <Key>
+      <PropertyRef Name="BlockID" />
+    </Key>
+    <Property Name="BlockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BuildID" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gps" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="build" Relationship="Self.block_build_BuildID_fk" FromRole="block" ToRole="build" />
+  </EntityType>
+  <EntityType Name="build">
+    <Key>
+      <PropertyRef Name="BuildID" />
+    </Key>
+    <Property Name="BuildID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SiteID" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Adress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Gps" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Properties" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CampusID" Type="Int32" />
+    <NavigationProperty Name="block" Relationship="Self.block_build_BuildID_fk" FromRole="build" ToRole="block" />
+    <NavigationProperty Name="campus" Relationship="Self.build_campus_CampusID_fk" FromRole="build" ToRole="campus" />
+    <NavigationProperty Name="site" Relationship="Self.build_site_SiteID_fk" FromRole="build" ToRole="site" />
+  </EntityType>
+  <EntityType Name="campus">
+    <Key>
+      <PropertyRef Name="CampusID" />
+    </Key>
+    <Property Name="CampusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="Other" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="build" Relationship="Self.build_campus_CampusID_fk" FromRole="campus" ToRole="build" />
+    <NavigationProperty Name="campussite" Relationship="Self.campussite_campus_CampusID_fk" FromRole="campus" ToRole="campussite" />
+  </EntityType>
+  <EntityType Name="campussite">
+    <Key>
+      <PropertyRef Name="CampusSiteID" />
+    </Key>
+    <Property Name="CampusSiteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SiteID" Type="Int32" Nullable="false" />
+    <Property Name="CampusID" Type="Int32" Nullable="false" />
+    <Property Name="Other" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="campus" Relationship="Self.campussite_campus_CampusID_fk" FromRole="campussite" ToRole="campus" />
+    <NavigationProperty Name="site" Relationship="Self.campussite_site_SiteID_fk" FromRole="campussite" ToRole="site" />
+  </EntityType>
+  <EntityType Name="department">
+    <Key>
+      <PropertyRef Name="DepartmentID" />
+    </Key>
+    <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Other" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SubUnitID" Type="Int32" />
+    <NavigationProperty Name="departmentroom" Relationship="Self.departmentroom_department_DepartmentID_fk" FromRole="department" ToRole="departmentroom" />
+    <NavigationProperty Name="userdepartment" Relationship="Self.FK_DepartmentID" FromRole="department" ToRole="userdepartment" />
+    <NavigationProperty Name="subunit" Relationship="Self.FK_SubUnitID" FromRole="department" ToRole="subunit" />
+  </EntityType>
+  <EntityType Name="departmentroom">
+    <Key>
+      <PropertyRef Name="DepartmentRoomID" />
+    </Key>
+    <Property Name="DepartmentRoomID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoomID" Type="Int32" />
+    <Property Name="DepartmentID" Type="Int32" />
+    <Property Name="Other" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="department" Relationship="Self.departmentroom_department_DepartmentID_fk" FromRole="departmentroom" ToRole="department" />
+    <NavigationProperty Name="room" Relationship="Self.departmentroom_room_RoomID_fk" FromRole="departmentroom" ToRole="room" />
+  </EntityType>
+  <EntityType Name="device">
+    <Key>
+      <PropertyRef Name="DeviceID" />
+    </Key>
+    <Property Name="DeviceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Properties" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Technology" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="DeviceTypeID" Type="Int32" />
+    <NavigationProperty Name="devicetype" Relationship="Self.device_devicetype_DeviceTypeID_fk" FromRole="device" ToRole="devicetype" />
+  </EntityType>
+  <EntityType Name="deviceroom">
+    <Key>
+      <PropertyRef Name="DeviceRoomID" />
+    </Key>
+    <Property Name="DeviceRoomID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoomID" Type="Int32" />
+    <Property Name="DeviceID" Type="Int32" />
+    <Property Name="LocationX" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="LocationY" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="CreationDate" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="devicetype">
+    <Key>
+      <PropertyRef Name="DeviceTypeID" />
+    </Key>
+    <Property Name="DeviceTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="device" Relationship="Self.device_devicetype_DeviceTypeID_fk" FromRole="devicetype" ToRole="device" />
+  </EntityType>
+  <EntityType Name="deviceuser">
+    <Key>
+      <PropertyRef Name="DeviceUserID" />
+    </Key>
+    <Property Name="DeviceUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DeviceID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" />
+    <NavigationProperty Name="user" Relationship="Self.deviceuser_user_UserID_fk" FromRole="deviceuser" ToRole="user" />
+  </EntityType>
+  <EntityType Name="floor">
+    <Key>
+      <PropertyRef Name="FloorID" />
+    </Key>
+    <Property Name="FloorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BlockID" Type="Int32" />
+    <Property Name="BuildID" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Other" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Map" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="room" Relationship="Self.room_floor_FloorID_fk" FromRole="floor" ToRole="room" />
+  </EntityType>
+  <EntityType Name="mainunit">
+    <Key>
+      <PropertyRef Name="MainUnitID" />
+    </Key>
+    <Property Name="MainUnitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="subunit" Relationship="Self.Fk_MainUnitID" FromRole="mainunit" ToRole="subunit" />
+  </EntityType>
+  <EntityType Name="room">
+    <Key>
+      <PropertyRef Name="RoomID" />
+    </Key>
+    <Property Name="RoomID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FloorID" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RoomTypeID" Type="Int32" />
+    <Property Name="Map" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="departmentroom" Relationship="Self.departmentroom_room_RoomID_fk" FromRole="room" ToRole="departmentroom" />
+    <NavigationProperty Name="floor" Relationship="Self.room_floor_FloorID_fk" FromRole="room" ToRole="floor" />
+    <NavigationProperty Name="roomtype" Relationship="Self.room_roomtype_RoomTypeID_fk" FromRole="room" ToRole="roomtype" />
+  </EntityType>
+  <EntityType Name="roomtype">
+    <Key>
+      <PropertyRef Name="RoomTypeID" />
+    </Key>
+    <Property Name="RoomTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="room" Relationship="Self.room_roomtype_RoomTypeID_fk" FromRole="roomtype" ToRole="room" />
+  </EntityType>
+  <EntityType Name="senderrecieverdevicemobilbeacon">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreationDate" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Point_Location" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="senderrecieverdevicemobilwifi">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreationDate" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Point_Location" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="senderrecieverdevicenodemcuwifi">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreationDate" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Point_Location" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="senderrecieverdeviceraspberrybeacon">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreationDate" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Name_4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_RSS_4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Device_Distance_4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Point_Location" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="site">
+    <Key>
+      <PropertyRef Name="SiteID" />
+    </Key>
+    <Property Name="SiteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gps" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="build" Relationship="Self.build_site_SiteID_fk" FromRole="site" ToRole="build" />
+    <NavigationProperty Name="campussite" Relationship="Self.campussite_site_SiteID_fk" FromRole="site" ToRole="campussite" />
+  </EntityType>
+  <EntityType Name="subunit">
+    <Key>
+      <PropertyRef Name="SubUnitID" />
+    </Key>
+    <Property Name="SubUnitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MainUnitID" Type="Int32" />
+    <NavigationProperty Name="department" Relationship="Self.FK_SubUnitID" FromRole="subunit" ToRole="department" />
+    <NavigationProperty Name="mainunit" Relationship="Self.Fk_MainUnitID" FromRole="subunit" ToRole="mainunit" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SurName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NationID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="UserTitleID" Type="Int32" />
+    <NavigationProperty Name="deviceuser" Relationship="Self.deviceuser_user_UserID_fk" FromRole="user" ToRole="deviceuser" />
+    <NavigationProperty Name="usertitle" Relationship="Self.user_usertitle_UserTitleID_fk" FromRole="user" ToRole="usertitle" />
+    <NavigationProperty Name="usercontact" Relationship="Self.usercontact_user_UserID_fk" FromRole="user" ToRole="usercontact" />
+    <NavigationProperty Name="userdepartment" Relationship="Self.userdepartment_user_UserID_fk" FromRole="user" ToRole="userdepartment" />
+    <NavigationProperty Name="userlogin" Relationship="Self.userlogin_user_UserID_fk" FromRole="user" ToRole="userlogin" />
+    <NavigationProperty Name="userpassword" Relationship="Self.userpassword_user_UserID_fk" FromRole="user" ToRole="userpassword" />
+    <NavigationProperty Name="useruserrole" Relationship="Self.useruserrole_user_UserID_fk" FromRole="user" ToRole="useruserrole" />
+  </EntityType>
+  <EntityType Name="usercontact">
+    <Key>
+      <PropertyRef Name="UserContactID" />
+    </Key>
+    <Property Name="UserContactID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="UserContactTypeID" Type="Int32" />
+    <NavigationProperty Name="user" Relationship="Self.usercontact_user_UserID_fk" FromRole="usercontact" ToRole="user" />
+    <NavigationProperty Name="usercontacttype" Relationship="Self.usercontact_usercontacttype_UserContactTypeID_fk" FromRole="usercontact" ToRole="usercontacttype" />
+  </EntityType>
+  <EntityType Name="usercontacttype">
+    <Key>
+      <PropertyRef Name="UserContactTypeID" />
+    </Key>
+    <Property Name="UserContactTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="usercontact" Relationship="Self.usercontact_usercontacttype_UserContactTypeID_fk" FromRole="usercontacttype" ToRole="usercontact" />
+  </EntityType>
+  <EntityType Name="userdepartment">
+    <Key>
+      <PropertyRef Name="UserDepartmentID" />
+    </Key>
+    <Property Name="UserDepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="DepartmentID" Type="Int32" />
+    <NavigationProperty Name="department" Relationship="Self.FK_DepartmentID" FromRole="userdepartment" ToRole="department" />
+    <NavigationProperty Name="user" Relationship="Self.userdepartment_user_UserID_fk" FromRole="userdepartment" ToRole="user" />
+  </EntityType>
+  <EntityType Name="userlogin">
+    <Key>
+      <PropertyRef Name="UserLoginID" />
+    </Key>
+    <Property Name="UserLoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreationDate" Type="DateTime" />
+    <Property Name="IpAdress" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
+    <NavigationProperty Name="user" Relationship="Self.userlogin_user_UserID_fk" FromRole="userlogin" ToRole="user" />
+  </EntityType>
+  <EntityType Name="userpassword">
+    <Key>
+      <PropertyRef Name="UserPasswordID" />
+    </Key>
+    <Property Name="UserPasswordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
+    <NavigationProperty Name="user" Relationship="Self.userpassword_user_UserID_fk" FromRole="userpassword" ToRole="user" />
+  </EntityType>
+  <EntityType Name="userrole">
+    <Key>
+      <PropertyRef Name="UserRoleID" />
+    </Key>
+    <Property Name="UserRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserRoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserRoleDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="useruserrole" Relationship="Self.FK_UserRoleID" FromRole="userrole" ToRole="useruserrole" />
+  </EntityType>
+  <EntityType Name="usertitle">
+    <Key>
+      <PropertyRef Name="UserTitleID" />
+    </Key>
+    <Property Name="UserTitleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TitleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="user" Relationship="Self.user_usertitle_UserTitleID_fk" FromRole="usertitle" ToRole="user" />
+  </EntityType>
+  <EntityType Name="useruserrole">
+    <Key>
+      <PropertyRef Name="UserUserRoleID" />
+    </Key>
+    <Property Name="UserUserRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="UserRoleID" Type="Int32" />
+    <NavigationProperty Name="user" Relationship="Self.useruserrole_user_UserID_fk" FromRole="useruserrole" ToRole="user" />
+    <NavigationProperty Name="userrole" Relationship="Self.FK_UserRoleID" FromRole="useruserrole" ToRole="userrole" />
+  </EntityType>
+  <Association Name="block_build_BuildID_fk">
+    <End Role="build" Type="Self.build" Multiplicity="0..1" />
+    <End Role="block" Type="Self.block" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="build">
+        <PropertyRef Name="BuildID" />
+      </Principal>
+      <Dependent Role="block">
+        <PropertyRef Name="BuildID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="build_campus_CampusID_fk">
+    <End Role="campus" Type="Self.campus" Multiplicity="0..1" />
+    <End Role="build" Type="Self.build" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="campus">
+        <PropertyRef Name="CampusID" />
+      </Principal>
+      <Dependent Role="build">
+        <PropertyRef Name="CampusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="build_site_SiteID_fk">
+    <End Role="site" Type="Self.site" Multiplicity="0..1" />
+    <End Role="build" Type="Self.build" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="site">
+        <PropertyRef Name="SiteID" />
+      </Principal>
+      <Dependent Role="build">
+        <PropertyRef Name="SiteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="campussite_campus_CampusID_fk">
+    <End Role="campus" Type="Self.campus" Multiplicity="1" />
+    <End Role="campussite" Type="Self.campussite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="campus">
+        <PropertyRef Name="CampusID" />
+      </Principal>
+      <Dependent Role="campussite">
+        <PropertyRef Name="CampusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="campussite_site_SiteID_fk">
+    <End Role="site" Type="Self.site" Multiplicity="1" />
+    <End Role="campussite" Type="Self.campussite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="site">
+        <PropertyRef Name="SiteID" />
+      </Principal>
+      <Dependent Role="campussite">
+        <PropertyRef Name="SiteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="departmentroom_department_DepartmentID_fk">
+    <End Role="department" Type="Self.department" Multiplicity="0..1" />
+    <End Role="departmentroom" Type="Self.departmentroom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="department">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="departmentroom">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DepartmentID">
+    <End Role="department" Type="Self.department" Multiplicity="0..1" />
+    <End Role="userdepartment" Type="Self.userdepartment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="department">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="userdepartment">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubUnitID">
+    <End Role="subunit" Type="Self.subunit" Multiplicity="0..1" />
+    <End Role="department" Type="Self.department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="subunit">
+        <PropertyRef Name="SubUnitID" />
+      </Principal>
+      <Dependent Role="department">
+        <PropertyRef Name="SubUnitID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="departmentroom_room_RoomID_fk">
+    <End Role="room" Type="Self.room" Multiplicity="0..1" />
+    <End Role="departmentroom" Type="Self.departmentroom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="room">
+        <PropertyRef Name="RoomID" />
+      </Principal>
+      <Dependent Role="departmentroom">
+        <PropertyRef Name="RoomID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="device_devicetype_DeviceTypeID_fk">
+    <End Role="devicetype" Type="Self.devicetype" Multiplicity="0..1" />
+    <End Role="device" Type="Self.device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="devicetype">
+        <PropertyRef Name="DeviceTypeID" />
+      </Principal>
+      <Dependent Role="device">
+        <PropertyRef Name="DeviceTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="deviceuser_user_UserID_fk">
+    <End Role="user" Type="Self.user" Multiplicity="0..1" />
+    <End Role="deviceuser" Type="Self.deviceuser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="deviceuser">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="room_floor_FloorID_fk">
+    <End Role="floor" Type="Self.floor" Multiplicity="0..1" />
+    <End Role="room" Type="Self.room" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="floor">
+        <PropertyRef Name="FloorID" />
+      </Principal>
+      <Dependent Role="room">
+        <PropertyRef Name="FloorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_MainUnitID">
+    <End Role="mainunit" Type="Self.mainunit" Multiplicity="0..1" />
+    <End Role="subunit" Type="Self.subunit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mainunit">
+        <PropertyRef Name="MainUnitID" />
+      </Principal>
+      <Dependent Role="subunit">
+        <PropertyRef Name="MainUnitID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="room_roomtype_RoomTypeID_fk">
+    <End Role="roomtype" Type="Self.roomtype" Multiplicity="0..1" />
+    <End Role="room" Type="Self.room" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="roomtype">
+        <PropertyRef Name="RoomTypeID" />
+      </Principal>
+      <Dependent Role="room">
+        <PropertyRef Name="RoomTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_usertitle_UserTitleID_fk">
+    <End Role="usertitle" Type="Self.usertitle" Multiplicity="0..1" />
+    <End Role="user" Type="Self.user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usertitle">
+        <PropertyRef Name="UserTitleID" />
+      </Principal>
+      <Dependent Role="user">
+        <PropertyRef Name="UserTitleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="usercontact_user_UserID_fk">
+    <End Role="user" Type="Self.user" Multiplicity="0..1" />
+    <End Role="usercontact" Type="Self.usercontact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="usercontact">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userdepartment_user_UserID_fk">
+    <End Role="user" Type="Self.user" Multiplicity="0..1" />
+    <End Role="userdepartment" Type="Self.userdepartment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="userdepartment">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userlogin_user_UserID_fk">
+    <End Role="user" Type="Self.user" Multiplicity="0..1" />
+    <End Role="userlogin" Type="Self.userlogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="userlogin">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userpassword_user_UserID_fk">
+    <End Role="user" Type="Self.user" Multiplicity="0..1" />
+    <End Role="userpassword" Type="Self.userpassword" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="userpassword">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="useruserrole_user_UserID_fk">
+    <End Role="user" Type="Self.user" Multiplicity="0..1" />
+    <End Role="useruserrole" Type="Self.useruserrole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="useruserrole">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="usercontact_usercontacttype_UserContactTypeID_fk">
+    <End Role="usercontacttype" Type="Self.usercontacttype" Multiplicity="0..1" />
+    <End Role="usercontact" Type="Self.usercontact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usercontacttype">
+        <PropertyRef Name="UserContactTypeID" />
+      </Principal>
+      <Dependent Role="usercontact">
+        <PropertyRef Name="UserContactTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoleID">
+    <End Role="userrole" Type="Self.userrole" Multiplicity="0..1" />
+    <End Role="useruserrole" Type="Self.useruserrole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userrole">
+        <PropertyRef Name="UserRoleID" />
+      </Principal>
+      <Dependent Role="useruserrole">
+        <PropertyRef Name="UserRoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="locationappEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="block" EntityType="Self.block" />
+    <EntitySet Name="build" EntityType="Self.build" />
+    <EntitySet Name="campus" EntityType="Self.campus" />
+    <EntitySet Name="campussite" EntityType="Self.campussite" />
+    <EntitySet Name="department" EntityType="Self.department" />
+    <EntitySet Name="departmentroom" EntityType="Self.departmentroom" />
+    <EntitySet Name="device" EntityType="Self.device" />
+    <EntitySet Name="deviceroom" EntityType="Self.deviceroom" />
+    <EntitySet Name="devicetype" EntityType="Self.devicetype" />
+    <EntitySet Name="deviceuser" EntityType="Self.deviceuser" />
+    <EntitySet Name="floor" EntityType="Self.floor" />
+    <EntitySet Name="mainunit" EntityType="Self.mainunit" />
+    <EntitySet Name="room" EntityType="Self.room" />
+    <EntitySet Name="roomtype" EntityType="Self.roomtype" />
+    <EntitySet Name="senderrecieverdevicemobilbeacon" EntityType="Self.senderrecieverdevicemobilbeacon" />
+    <EntitySet Name="senderrecieverdevicemobilwifi" EntityType="Self.senderrecieverdevicemobilwifi" />
+    <EntitySet Name="senderrecieverdevicenodemcuwifi" EntityType="Self.senderrecieverdevicenodemcuwifi" />
+    <EntitySet Name="senderrecieverdeviceraspberrybeacon" EntityType="Self.senderrecieverdeviceraspberrybeacon" />
+    <EntitySet Name="site" EntityType="Self.site" />
+    <EntitySet Name="subunit" EntityType="Self.subunit" />
+    <EntitySet Name="user" EntityType="Self.user" />
+    <EntitySet Name="usercontact" EntityType="Self.usercontact" />
+    <EntitySet Name="usercontacttype" EntityType="Self.usercontacttype" />
+    <EntitySet Name="userdepartment" EntityType="Self.userdepartment" />
+    <EntitySet Name="userlogin" EntityType="Self.userlogin" />
+    <EntitySet Name="userpassword" EntityType="Self.userpassword" />
+    <EntitySet Name="userrole" EntityType="Self.userrole" />
+    <EntitySet Name="usertitle" EntityType="Self.usertitle" />
+    <EntitySet Name="useruserrole" EntityType="Self.useruserrole" />
+    <AssociationSet Name="block_build_BuildID_fk" Association="Self.block_build_BuildID_fk">
+      <End Role="build" EntitySet="build" />
+      <End Role="block" EntitySet="block" />
+    </AssociationSet>
+    <AssociationSet Name="build_campus_CampusID_fk" Association="Self.build_campus_CampusID_fk">
+      <End Role="campus" EntitySet="campus" />
+      <End Role="build" EntitySet="build" />
+    </AssociationSet>
+    <AssociationSet Name="build_site_SiteID_fk" Association="Self.build_site_SiteID_fk">
+      <End Role="site" EntitySet="site" />
+      <End Role="build" EntitySet="build" />
+    </AssociationSet>
+    <AssociationSet Name="campussite_campus_CampusID_fk" Association="Self.campussite_campus_CampusID_fk">
+      <End Role="campus" EntitySet="campus" />
+      <End Role="campussite" EntitySet="campussite" />
+    </AssociationSet>
+    <AssociationSet Name="campussite_site_SiteID_fk" Association="Self.campussite_site_SiteID_fk">
+      <End Role="site" EntitySet="site" />
+      <End Role="campussite" EntitySet="campussite" />
+    </AssociationSet>
+    <AssociationSet Name="departmentroom_department_DepartmentID_fk" Association="Self.departmentroom_department_DepartmentID_fk">
+      <End Role="department" EntitySet="department" />
+      <End Role="departmentroom" EntitySet="departmentroom" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DepartmentID" Association="Self.FK_DepartmentID">
+      <End Role="department" EntitySet="department" />
+      <End Role="userdepartment" EntitySet="userdepartment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubUnitID" Association="Self.FK_SubUnitID">
+      <End Role="subunit" EntitySet="subunit" />
+      <End Role="department" EntitySet="department" />
+    </AssociationSet>
+    <AssociationSet Name="departmentroom_room_RoomID_fk" Association="Self.departmentroom_room_RoomID_fk">
+      <End Role="room" EntitySet="room" />
+      <End Role="departmentroom" EntitySet="departmentroom" />
+    </AssociationSet>
+    <AssociationSet Name="device_devicetype_DeviceTypeID_fk" Association="Self.device_devicetype_DeviceTypeID_fk">
+      <End Role="devicetype" EntitySet="devicetype" />
+      <End Role="device" EntitySet="device" />
+    </AssociationSet>
+    <AssociationSet Name="deviceuser_user_UserID_fk" Association="Self.deviceuser_user_UserID_fk">
+      <End Role="user" EntitySet="user" />
+      <End Role="deviceuser" EntitySet="deviceuser" />
+    </AssociationSet>
+    <AssociationSet Name="room_floor_FloorID_fk" Association="Self.room_floor_FloorID_fk">
+      <End Role="floor" EntitySet="floor" />
+      <End Role="room" EntitySet="room" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_MainUnitID" Association="Self.Fk_MainUnitID">
+      <End Role="mainunit" EntitySet="mainunit" />
+      <End Role="subunit" EntitySet="subunit" />
+    </AssociationSet>
+    <AssociationSet Name="room_roomtype_RoomTypeID_fk" Association="Self.room_roomtype_RoomTypeID_fk">
+      <End Role="roomtype" EntitySet="roomtype" />
+      <End Role="room" EntitySet="room" />
+    </AssociationSet>
+    <AssociationSet Name="user_usertitle_UserTitleID_fk" Association="Self.user_usertitle_UserTitleID_fk">
+      <End Role="usertitle" EntitySet="usertitle" />
+      <End Role="user" EntitySet="user" />
+    </AssociationSet>
+    <AssociationSet Name="usercontact_user_UserID_fk" Association="Self.usercontact_user_UserID_fk">
+      <End Role="user" EntitySet="user" />
+      <End Role="usercontact" EntitySet="usercontact" />
+    </AssociationSet>
+    <AssociationSet Name="userdepartment_user_UserID_fk" Association="Self.userdepartment_user_UserID_fk">
+      <End Role="user" EntitySet="user" />
+      <End Role="userdepartment" EntitySet="userdepartment" />
+    </AssociationSet>
+    <AssociationSet Name="userlogin_user_UserID_fk" Association="Self.userlogin_user_UserID_fk">
+      <End Role="user" EntitySet="user" />
+      <End Role="userlogin" EntitySet="userlogin" />
+    </AssociationSet>
+    <AssociationSet Name="userpassword_user_UserID_fk" Association="Self.userpassword_user_UserID_fk">
+      <End Role="user" EntitySet="user" />
+      <End Role="userpassword" EntitySet="userpassword" />
+    </AssociationSet>
+    <AssociationSet Name="useruserrole_user_UserID_fk" Association="Self.useruserrole_user_UserID_fk">
+      <End Role="user" EntitySet="user" />
+      <End Role="useruserrole" EntitySet="useruserrole" />
+    </AssociationSet>
+    <AssociationSet Name="usercontact_usercontacttype_UserContactTypeID_fk" Association="Self.usercontact_usercontacttype_UserContactTypeID_fk">
+      <End Role="usercontacttype" EntitySet="usercontacttype" />
+      <End Role="usercontact" EntitySet="usercontact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoleID" Association="Self.FK_UserRoleID">
+      <End Role="userrole" EntitySet="userrole" />
+      <End Role="useruserrole" EntitySet="useruserrole" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,159 @@
+﻿@model LocationApp.Data.Dto.BuildDto
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Css.cshtml")
+}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Lokasyon <small> Bina</small></h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Binalar<small></small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    @using (Html.BeginForm("Edit", "Build", FormMethod.Post, new { @class = "form-horizontal form-label-left" }))
+                    {
+                        @Html.HiddenFor(model => model.BuildID)
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="siteID">Kampüs Başlık :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownListFor(model => model.CampusID, new SelectList(ViewBag.Campus, "CampusID", "Name"), new { @class = "form-control", @id = "kampus", @onchange = "dropValidation();" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="siteID">Site Başlık :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownListFor(model => model.SiteID, new SelectList(ViewBag.Sites, "SiteID", "Name"), new { @class = "form-control", @id = "site", @onchange = "dropValidation();" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                                Bina Başlık : <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control col-md-7 col-xs-12", @required = "required",@id="name" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gps">
+                                Adres : <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextAreaFor(model => model.Address, new { @class = "form-control col-md-7 col-xs-12", @required = "required",@id="adres" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gps">
+                                Gps : <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.Gps, new { @class = "form-control col-md-7 col-xs-12", @required = "required",@id="gps" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gps">
+                                Özellikler : <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.Properties, new { @class = "form-control col-md-7 col-xs-12", @required = "required" ,@id="prop"})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-success pull-right" name="save">Kaydet</button>
+                                <a href="/Build/List" class="btn btn-primary pull-right" type="button">Listeleye Dön</a>
+                            </div>
+                        </div>
+                    }
+                    <div class="success">
+                        @Html.Raw(ViewBag.Message)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+@section Scripts{
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Js.cshtml")
+    <script>
+        $("div.success").fadeIn(100).delay(1500).fadeOut(400);
+
+        $(document).ready(function () {
+            var kampus = $("#kampus").val();
+            var site = $("#site").val();
+            var name = $("#name").val();
+            var adres = $("#adres").val();
+            var gps = $("#gps").val();
+            var prop = $("#prop").val()
+
+            if (kampus != 0 && site != 0 && name != 0 && adres != 0 && gps != 0 && prop != 0) {
+                $("button[name=save]").prop('disabled', false);
+            }
+            else {
+                $("button[name=save]").prop('disabled', true);
+            }
+
+        });
+        function dropValidation() {
+            var kampus = $("#kampus").val();
+            var site = $("#site").val();
+            var name = $("#name").val();
+            var adres = $("#adres").val();
+            var gps = $("#gps").val();
+            var prop = $("#prop").val()
+
+            if (kampus != 0 && site != 0 && name != 0 && adres != 0 && gps != 0 && prop != 0) {
+                $("button[name=save]").prop('disabled', false);
+            }
+            else {
+                $("button[name=save]").prop('disabled', true);
+            }
+        }
+        $(document).ready(function () {
+            $('#kampus').select2();
+            $('#site').select2();
+            
+        })
+    </script>
+    <script type="text/javascript">
+        $("#CampusID").change(function () {
+            var campusID = $(this).val();
+            $("#SiteID").empty();
+            if (campusID > 0) {
+                $.ajax({
+                    url: '/Build/GetSiteWithByCampusID',
+                    type: "GET",
+                    dataType: "json",
+                    data: { campusID: campusID },
+                    success: function (data) {
+                        if (data != null) {
+                            $.each(data, function () {
+                                $('#SiteID').append('<option value=' + this.SiteID + '>' + this.Name + '</option>');
+                            });
+                        } else {
+                            $('#SiteID').append('<option value="0">Seçiniz</option>');
+
+                        }
+                        $('#SiteID').append('<option value="0">Seçiniz</option>');
+                    }
+                });
+            }
+            else {
+                $('#SiteID').append('<option value="0">Seçiniz</option>');
+            }
+        });
+    </script>
+}

@@ -1,0 +1,138 @@
+﻿@model LocationApp.Data.Dto.DepartmentDto
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles{
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Css.cshtml")
+}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Lokasyon <small> Departman</small></h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Departman<small></small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    @using (Html.BeginForm("Edit", "Department", FormMethod.Post, new { @class = "form-horizontal form-label-left" }))
+                    {
+                        
+                        @Html.HiddenFor(model => model.DepartmentID)
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="siteID">Ana Birim :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownList("MainUnitID", new SelectList(ViewBag.MainUnits, "MainUnitID", "Name", ViewBag.SelectedMainUnitID), new { @class = "form-control", @onchange = "dropValidation();" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="siteID">Alt Birim :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownList("SubUnitID", new SelectList(ViewBag.SubUnits, "SubUnitID", "Name", ViewBag.SelectedSubUnitID), new { @class = "form-control", @onchange = "dropValidation();" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                                Departman Başlık : <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">
+                                Açıklama <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.Description, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">
+                                Diğer <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.Other, new { @class = "form-control col-md-7 col-xs-12" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button name="save" type="submit" class="btn btn-success pull-right">Kaydet</button>
+                                <a href="/Department/List" class="btn btn-primary pull-right" type="button">Listeleye Dön</a>
+                            </div>
+                        </div>
+                    }
+                    <div class="success">
+                            @Html.Raw(ViewBag.Message)
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+@section Scripts{
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Js.cshtml")
+<script>
+    $("div.success").fadeIn(100).delay(1500).fadeOut(400);
+    $(document).ready(function () {
+        var mainunit = $("#MainUnitID").val();
+        var subunit = $("#SubUnitID").val();
+
+        if (subunit != 0 && mainunit != 0) {
+            $("button[name=save]").prop('disabled', false);
+        }
+        else {
+            $("button[name=save]").prop('disabled', true);
+        }
+
+    });
+    function dropValidation() {
+        var mainunit = $("#MainUnitID").val();
+        var subunit = $("#SubUnitID").val();
+
+        if (mainunit != 0 && subunit != 0) {
+            $("button[name=save]").prop('disabled', false);
+        }
+        else {
+            $("button[name=save]").prop('disabled', true);
+        }
+    }
+    $(document).ready(function () {
+        $('#MainUnitID').select2();
+        $('#SubUnitID').select2();
+    })
+</script>
+    <script type="text/javascript">
+        $("#MainUnitID").change(function () {
+            var mainUnitID = $(this).val();
+            $("#SubUnitID").empty();
+            if (mainUnitID > 0) {
+                $.ajax({
+                    url: '/Department/GetSubUnit',
+                    type: "GET",
+                    dataType: "json",
+                    data: { mainUnitID: mainUnitID },
+                    success: function (data) {
+                        if (data != null) {
+                            $.each(data, function () {
+                                $('#SubUnitID').append('<option value=' + this.SubUnitID + '>' + this.Name + '</option>');
+                            });
+                        } else {
+                            $('#SubUnitID').append('<option value="0">Seçiniz</option>');
+                        }
+                    }
+                });
+            } else {
+                $('#SubUnitID').append('<option value="0">Seçiniz</option>');
+            }
+        });
+    </script>
+}

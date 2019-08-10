@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{7DD4935A-2006-4BF0-AB61-94897342ACD9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{82F0BB2E-1FFA-4EAA-9B82-A469E9120FA4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{866931B2-A232-4F37-81E0-848764FA7E8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{5E69F5EB-F8FF-4B0F-9B37-1F6D1AAAF101}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocationApp.Data", "LocationApp.Data\LocationApp.Data.csproj", "{55B060ED-1B57-4668-97DE-A003EA64A2B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocationApp.Core", "LocationApp.Core\LocationApp.Core.csproj", "{68A75967-F4BC-4EA8-A237-13E887F967B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocationApp.Service", "LocationApp.Service\LocationApp.Service.csproj", "{618CE518-B3CC-4E59-BC1A-3DB555571C27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocationApp.Web.Mvc", "LocationApp.Web.Mvc\LocationApp.Web.Mvc.csproj", "{2E070600-CC5F-4202-B822-E6F92CCD87FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55B060ED-1B57-4668-97DE-A003EA64A2B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55B060ED-1B57-4668-97DE-A003EA64A2B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55B060ED-1B57-4668-97DE-A003EA64A2B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55B060ED-1B57-4668-97DE-A003EA64A2B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68A75967-F4BC-4EA8-A237-13E887F967B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68A75967-F4BC-4EA8-A237-13E887F967B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68A75967-F4BC-4EA8-A237-13E887F967B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68A75967-F4BC-4EA8-A237-13E887F967B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{618CE518-B3CC-4E59-BC1A-3DB555571C27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{618CE518-B3CC-4E59-BC1A-3DB555571C27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{618CE518-B3CC-4E59-BC1A-3DB555571C27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{618CE518-B3CC-4E59-BC1A-3DB555571C27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E070600-CC5F-4202-B822-E6F92CCD87FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E070600-CC5F-4202-B822-E6F92CCD87FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E070600-CC5F-4202-B822-E6F92CCD87FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E070600-CC5F-4202-B822-E6F92CCD87FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{55B060ED-1B57-4668-97DE-A003EA64A2B3} = {7DD4935A-2006-4BF0-AB61-94897342ACD9}
+		{68A75967-F4BC-4EA8-A237-13E887F967B5} = {866931B2-A232-4F37-81E0-848764FA7E8C}
+		{618CE518-B3CC-4E59-BC1A-3DB555571C27} = {82F0BB2E-1FFA-4EAA-9B82-A469E9120FA4}
+		{2E070600-CC5F-4202-B822-E6F92CCD87FF} = {5E69F5EB-F8FF-4B0F-9B37-1F6D1AAAF101}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {52284E59-A753-475F-8387-3E8733F39CCA}
+	EndGlobalSection
+EndGlobal

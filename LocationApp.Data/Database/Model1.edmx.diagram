@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b25246f4e7a94bb4ba408f875038b5e4" Name="Diagram1">
+        <EntityTypeShape EntityType="locationappModel.block" Width="1.5" PointX="18.25" PointY="8" />
+        <EntityTypeShape EntityType="locationappModel.build" Width="1.5" PointX="16" PointY="7.625" />
+        <EntityTypeShape EntityType="locationappModel.campu" Width="1.5" PointX="10.75" PointY="8" />
+        <EntityTypeShape EntityType="locationappModel.campussite" Width="1.5" PointX="13" PointY="8" />
+        <EntityTypeShape EntityType="locationappModel.department" Width="1.5" PointX="3" PointY="4.125" />
+        <EntityTypeShape EntityType="locationappModel.departmentroom" Width="1.5" PointX="13.25" PointY="2.75" />
+        <EntityTypeShape EntityType="locationappModel.device" Width="1.5" PointX="10" PointY="11.875" />
+        <EntityTypeShape EntityType="locationappModel.deviceroom" Width="1.5" PointX="12.75" PointY="14.75" />
+        <EntityTypeShape EntityType="locationappModel.devicetype" Width="1.5" PointX="7.75" PointY="12.25" />
+        <EntityTypeShape EntityType="locationappModel.deviceuser" Width="1.5" PointX="5.25" PointY="19.625" />
+        <EntityTypeShape EntityType="locationappModel.floor" Width="1.5" PointX="8.75" PointY="1" />
+        <EntityTypeShape EntityType="locationappModel.mainunit" Width="1.5" PointX="1.5" PointY="1.625" />
+        <EntityTypeShape EntityType="locationappModel.room" Width="1.5" PointX="11" PointY="1" />
+        <EntityTypeShape EntityType="locationappModel.roomtype" Width="1.5" PointX="8.75" PointY="5.375" />
+        <EntityTypeShape EntityType="locationappModel.senderrecieverdevicemobilbeacon" Width="1.5" PointX="14.75" PointY="14.75" />
+        <EntityTypeShape EntityType="locationappModel.senderrecieverdevicemobilwifi" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="locationappModel.senderrecieverdevicenodemcuwifi" Width="1.5" PointX="0.75" PointY="15.75" />
+        <EntityTypeShape EntityType="locationappModel.senderrecieverdeviceraspberrybeacon" Width="1.5" PointX="7.75" PointY="15.75" />
+        <EntityTypeShape EntityType="locationappModel.site" Width="1.5" PointX="13.75" PointY="11" />
+        <EntityTypeShape EntityType="locationappModel.subunit" Width="1.5" PointX="0.75" PointY="4.375" />
+        <EntityTypeShape EntityType="locationappModel.user" Width="1.5" PointX="3" PointY="7.625" />
+        <EntityTypeShape EntityType="locationappModel.usercontact" Width="1.5" PointX="5.25" PointY="11.375" />
+        <EntityTypeShape EntityType="locationappModel.usercontacttype" Width="1.5" PointX="3" PointY="12.5" />
+        <EntityTypeShape EntityType="locationappModel.userdepartment" Width="1.5" PointX="5.25" PointY="8.375" />
+        <EntityTypeShape EntityType="locationappModel.userlogin" Width="1.5" PointX="5.25" PointY="16.75" />
+        <EntityTypeShape EntityType="locationappModel.userpassword" Width="1.5" PointX="5.25" PointY="5.75" />
+        <EntityTypeShape EntityType="locationappModel.userrole" Width="1.5" PointX="6" PointY="2.375" />
+        <EntityTypeShape EntityType="locationappModel.usertitle" Width="1.5" PointX="0.75" PointY="8.625" />
+        <EntityTypeShape EntityType="locationappModel.useruserrole" Width="1.5" PointX="8.25" PointY="8.375" />
+        <AssociationConnector Association="locationappModel.block_build_BuildID_fk" />
+        <AssociationConnector Association="locationappModel.build_campus_CampusID_fk" />
+        <AssociationConnector Association="locationappModel.build_site_SiteID_fk" />
+        <AssociationConnector Association="locationappModel.campussite_campus_CampusID_fk" />
+        <AssociationConnector Association="locationappModel.campussite_site_SiteID_fk" />
+        <AssociationConnector Association="locationappModel.departmentroom_department_DepartmentID_fk" />
+        <AssociationConnector Association="locationappModel.FK_DepartmentID" />
+        <AssociationConnector Association="locationappModel.FK_SubUnitID" />
+        <AssociationConnector Association="locationappModel.departmentroom_room_RoomID_fk" />
+        <AssociationConnector Association="locationappModel.device_devicetype_DeviceTypeID_fk" />
+        <AssociationConnector Association="locationappModel.deviceuser_user_UserID_fk" />
+        <AssociationConnector Association="locationappModel.room_floor_FloorID_fk" />
+        <AssociationConnector Association="locationappModel.Fk_MainUnitID" />
+        <AssociationConnector Association="locationappModel.room_roomtype_RoomTypeID_fk" />
+        <AssociationConnector Association="locationappModel.user_usertitle_UserTitleID_fk" />
+        <AssociationConnector Association="locationappModel.usercontact_user_UserID_fk" />
+        <AssociationConnector Association="locationappModel.userdepartment_user_UserID_fk" />
+        <AssociationConnector Association="locationappModel.userlogin_user_UserID_fk" />
+        <AssociationConnector Association="locationappModel.userpassword_user_UserID_fk" />
+        <AssociationConnector Association="locationappModel.useruserrole_user_UserID_fk" />
+        <AssociationConnector Association="locationappModel.usercontact_usercontacttype_UserContactTypeID_fk" />
+        <AssociationConnector Association="locationappModel.FK_UserRoleID" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

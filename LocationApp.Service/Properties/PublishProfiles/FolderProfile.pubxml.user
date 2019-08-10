@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\carte\Desktop\KubilayLocation</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="bin/Google.Protobuf.dll">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="bin/LocationApp.Core.dll">
+      <publishTime>05/24/2019 14:36:32</publishTime>
+    </File>
+    <File Include="bin/LocationApp.Core.dll.config">
+      <publishTime>05/24/2019 14:35:01</publishTime>
+    </File>
+    <File Include="bin/LocationApp.Core.pdb">
+      <publishTime>05/24/2019 14:36:32</publishTime>
+    </File>
+    <File Include="bin/LocationApp.Data.dll">
+      <publishTime>05/24/2019 14:36:31</publishTime>
+    </File>
+    <File Include="bin/LocationApp.Data.dll.config">
+      <publishTime>05/24/2019 14:35:02</publishTime>
+    </File>
+    <File Include="bin/LocationApp.Data.pdb">
+      <publishTime>05/24/2019 14:36:31</publishTime>
+    </File>
+    <File Include="bin/LocationApp.Service.dll">
+      <publishTime>05/24/2019 14:36:33</publishTime>
+    </File>
+    <File Include="bin/LocationApp.Service.pdb">
+      <publishTime>05/24/2019 14:36:33</publishTime>
+    </File>
+    <File Include="bin/MySql.Data.dll">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="bin/MySql.Data.EntityFramework.dll">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="bin/netstandard.dll">
+      <publishTime>03/10/2019 01:58:03</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.pdb">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="bin/System.ServiceModel.Primitives.dll">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="PrecompiledApp.config">
+      <publishTime>05/24/2019 14:36:34</publishTime>
+    </File>
+    <File Include="Services/BlockService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/BuildService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/CampusService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/CampusSiteService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/DepartmentRoomService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/DepartmentService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/DeviceRoomService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/DeviceService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/DeviceTypeService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/DeviceUserService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/FloorService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/MainUnitService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/RoomService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/RoomTypeService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/SenderRecieverDeviceService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/SiteService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/SubUnitService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/UserContactService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/UserContactTypeService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/UserDepartmentService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/UserLoginService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/UserPasswordService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/UserRoleService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/UserService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/UserTitleService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Services/UserUserRoleService.svc">
+      <publishTime>05/16/2019 00:43:55</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>05/24/2019 14:36:33</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

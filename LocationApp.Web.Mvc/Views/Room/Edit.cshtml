@@ -1,0 +1,236 @@
+﻿@model LocationApp.Data.Dto.RoomDto
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int selectedBuildID = 0;
+    int selectedBlockID = 0;
+    if (Model.BuildDto != null)
+    {
+        selectedBuildID = Model.BuildDto.BuildID;
+    }
+    else
+    {
+        selectedBlockID = Model.BlockDto.BlockID;
+
+    }
+}
+@section Styles{
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Css.cshtml")
+}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Lokasyon <small> Oda</small></h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Oda<small></small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    @using (Html.BeginForm("Edit", "Room", FormMethod.Post, new { @class = "form-horizontal form-label-left", @enctype = "multipart/form-data" }))
+                    {
+                        @Html.HiddenFor(model => model.RoomID)
+                        @Html.Hidden("DepartmentRoomID", Model.DepartmentRoomDto.DepartmentRoomID)
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="siteID">Seçim :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select id="Secim" name="Secim" class="form-control">
+                                    <option value="0">Bina</option>
+                                    <option value="1">Blok</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="siteID">Bina :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownList("BuildID", new SelectList(ViewBag.Builds, "BuildID", "Name", selectedBuildID), new { @class = "form-control", @required = "required", @onchange = "dropValidation();" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="siteID">Blok :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownList("BlockID", new SelectList(ViewBag.Blocks, "BlockID", "Name", selectedBlockID), new { @class = "form-control", @required = "required", @onchange = "dropValidation();" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="siteID">Kat :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownListFor(model => model.FloorID, new SelectList(ViewBag.Floors, "FloorID", "Name", 0), new { @class = "form-control", @required = "required", @onchange = "dropValidation();" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="siteID">Departman :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownListFor(model => model.DepartmentID, new SelectList(ViewBag.Departments, "DepartmentID", "Name", Model.DepartmentDto.DepartmentID), new { @class = "form-control", @required = "required", @onchange = "dropValidation();" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="siteID">Oda Türü :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownListFor(model => model.RoomTypeID, new SelectList(ViewBag.RoomTypes, "RoomTypeID", "Name", Model.RoomTypeID), new { @class = "form-control", @required = "required", @onchange = "dropValidation();" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                                Oda Başlık : <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">
+                                Harita  <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="file" id="mapFile" name="mapFile" accept="image/*" class="form-control col-md-7 col-xs-12" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-success pull-right" name="save">Kaydet</button>
+                                <a href="/Room/List" class="btn btn-primary pull-right" type="button">Listeleye Dön</a>
+                            </div>
+                        </div>
+                    }
+                    <div class="success">
+                        @Html.Raw(ViewBag.Message)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+@section Scripts{
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Js.cshtml")
+    <script type="text/javascript">
+        $("div.success").fadeIn(100).delay(1500).fadeOut(400);
+        $(document).ready(function () {
+            var buildID = $("#BuildID").val();
+            var blockID = $("#BlockID").val();
+            if (buildID > 0) {
+                $("#Secim").val(0);
+                $("#BuildID").removeAttr('disabled');
+                $("#BlockID").attr('disabled', 'disabled');
+            }
+            else {
+                $("#Secim").val(1);
+                $("#BlockID").removeAttr('disabled');
+                $("#BuildID").attr('disabled', 'disabled');
+            }
+        });
+        $("#Secim").change(function () {
+            $("#BuildID").val(0);
+            $("#BlockID").val(0);
+            var value = $(this).val();
+            if (value == 0) {
+                $("#BuildID").removeAttr('disabled');
+                $("#BlockID").attr('disabled', 'disabled');
+            }
+            else {
+                $("#BlockID").removeAttr('disabled');
+                $("#BuildID").attr('disabled', 'disabled');
+            }
+        });
+        $("#BuildID").change(function () {
+            var buildID = $(this).val();
+            if (buildID != 0) {
+                $("#FloorID").empty();
+                $.ajax({
+                    url: '/Room/GetFloorByBuildID',
+                    type: "GET",
+                    dataType: "json",
+                    data: { buildID: buildID },
+                    success: function (data) {
+                        $('#FloorID').empty();
+                        if (data != null) {
+                            $.each(data, function () {
+                                $('#FloorID').append('<option value=' + this.FloorID + '>' + this.Name + '</option>');
+                            });
+                        }
+                        else {
+                            $('#FloorID').append('<option value=' + 0 + '>' + "Seçiniz" + '</option>');
+                        }
+                    }
+                });
+            }
+            else {
+                $("#FloorID").empty();
+                $('#FloorID').append('<option value=' + 0 + '>' + "Seçiniz" + '</option>');
+            }
+        });
+        $("#BlockID").change(function () {
+            var blockID = $(this).val();
+            if (blockID != 0) {
+                $("#FloorID").empty();
+                $.ajax({
+                    url: '/Room/GetFloorByBlockID',
+                    type: "GET",
+                    dataType: "json",
+                    data: { blockID: blockID },
+                    success: function (data) {
+                        $('#FloorID').empty();
+                        if (data != null) {
+                            $.each(data, function () {
+                                $('#FloorID').append('<option value=' + this.FloorID + '>' + this.Name + '</option>');
+                            });
+                        }
+                        else {
+                            $('#FloorID').append('<option value=' + 0 + '>' + "Seçiniz" + '</option>');
+                        }
+                    }
+                });
+            }
+            else {
+                $("#FloorID").empty();
+                $('#FloorID').append('<option value=' + 0 + '>' + "Seçiniz" + '</option>');
+            }
+        });</script>
+    <script>
+    $(document).ready(function () {
+
+            var buildID = $("#BuildID").val();
+            var blockID = $("#BlockID").val();
+            var floorID = $("#FloorID").val();
+            var departmentID = $("#DepartmentID").val();
+            var roomTypeID = $("#RoomTypeID").val();
+            
+            if (buildID != 0 && blockID != 0 && floorID != 0 && departmentID != 0 && roomTypeID != 0) {
+                $("button[name=save]").prop('disabled', false);
+            }
+            else {
+                $("button[name=save]").prop('disabled', true);
+            }
+
+        });
+        function dropValidation() {
+            var buildID = $("#BuildID").val();
+            var blockID = $("#BlockID").val();
+            var floorID = $("#FloorID").val();
+            var departmentID = $("#DepartmentID").val();
+            var roomTypeID = $("#RoomTypeID").val();
+
+            if (buildID != 0 && blockID != 0 && floorID != 0 && departmentID != 0 && roomTypeID != 0) {
+                $("button[name=save]").prop('disabled', false);
+            }
+            else {
+                $("button[name=save]").prop('disabled', true);
+            }
+        }
+        $(document).ready(function () {
+            $('#BuildID').select2();
+            $('#BlockID').select2();
+            $('#FloorID').select2();
+            $('#DepartmentID').select2();
+            $('#RoomTypeID').select2();
+
+        })</script>
+}

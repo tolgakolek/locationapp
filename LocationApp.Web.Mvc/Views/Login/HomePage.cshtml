@@ -1,0 +1,334 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personel Takip Sistemi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css'>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css'>
+    <link href="~/Content/other/homepage.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                <!-- lokasyon -->
+                <div class="slide-container">
+                    <div class="wrapper">
+                        <div class="clash-card barbarian">
+                            <div class="clash-card__image clash-card__image--barbarian">
+                                <img src="~/Content/other/İmg/LGB_1026_1.png" alt="giant" class="img" />
+                            </div>
+                            <div class="clash-card__level clash-card__level--barbarian">Lokasyon</div>
+                            <div class="clash-card__unit-name">Kampüs</div>
+                            <div class="clash-card__unit-description">
+                                Konumunuzda bağlı bulunan en tepe birim olan kampüs birimi her birimin en üst noktasıdır<br>
+                                <a href="/Campus/List" type="button" class="btn btn-primary">Görüntüle</a>
+                            </div>
+                            <div class="clash-card__unit-stats clash-card__unit-stats--barbarian clearfix">
+                                <div class="one-third">
+                                    <div class="stat">20</div>
+                                    <div class="stat-value">Blok</div>
+                                </div>
+                                <div class="one-third">
+                                    <div class="stat">16</div>
+                                    <div class="stat-value">Site</div>
+                                </div>
+                                <div class="one-third no-border">
+                                    <div class="stat">1</div>
+                                    <div class="stat-value">Kampüs</div>
+                                </div>
+                            </div>
+                        </div> <!-- end clash-card barbarian-->
+                    </div> <!-- kampüs -->
+                    <div class="wrapper">
+                        <div class="clash-card archer">
+                            <div class="clash-card__image clash-card__image--barbarian">
+                                <img src="~/Content/other/İmg/site.jpg" alt="giant" class="img" />
+                            </div>
+                            <div class="clash-card__level clash-card__level--archer">Lokasyon</div>
+                            <div class="clash-card__unit-name">Site</div>
+                            <div class="clash-card__unit-description">
+                                The Archer is a female warrior with sharp eyes. She wears a short, light green dress, a hooded cape, a
+                                leather
+                                belt and an attached small pouch.<br>
+                                <a href="/Site/List" type="button" class="btn btn-primary">Görüntüle</a>
+                            </div>
+                            <div class="clash-card__unit-stats clash-card__unit-stats--archer clearfix">
+                                <div class="one-third">
+                                    <div class="stat">25</div>
+                                    <div class="stat-value">Bina</div>
+                                </div>
+                                <div class="one-third">
+                                    <div class="stat">24</div>
+                                    <div class="stat-value">Blok</div>
+                                </div>
+                                <div class="one-third no-border">
+                                    <div class="stat">300</div>
+                                    <div class="stat-value">Site</div>
+                                </div>
+                            </div>
+                        </div> <!-- end clash-card archer-->
+                    </div> <!-- Site -->
+                    <div class="wrapper">
+                        <div class="clash-card giant">
+                            <div class="clash-card__image clash-card__image--goblin">
+                                <img src="~/Content/other/İmg/bina.jpg" alt="goblin" class="img" />
+                            </div>
+                            <div class="clash-card__level clash-card__level--giant">Lokasyon</div>
+                            <div class="clash-card__unit-name">Blok</div>
+                            <div class="clash-card__unit-description">
+                                Slow, steady and powerful, Giants are massive warriors that soak up huge amounts of damage. Show them a
+                                turret
+                                or cannon and you'll see their fury unleashed!
+                                <a href="/Block/List" type="button" class="btn btn-primary">Görüntüle</a>
+                            </div>
+
+                            <div class="clash-card__unit-stats clash-card__unit-stats--giant clearfix">
+                                <div class="one-third">
+                                    <div class="stat">2</div>
+                                    <div class="stat-value">Kat</div>
+                                </div>
+
+                                <div class="one-third">
+                                    <div class="stat">12</div>
+                                    <div class="stat-value">Bina</div>
+                                </div>
+
+                                <div class="one-third no-border">
+                                    <div class="stat">2250</div>
+                                    <div class="stat-value">Blok</div>
+                                </div>
+
+                            </div>
+
+                        </div> <!-- end clash-card giant-->
+                    </div> <!-- Blok -->
+                    <div class="wrapper">
+                        <div class="clash-card goblin">
+                            <div class="clash-card__image clash-card__image--goblin">
+                                <img src="~/Content/other/İmg/blok.jpg" alt="goblin" class="img" />
+                            </div>
+                            <div class="clash-card__level clash-card__level--goblin">Lokasyon</div>
+                            <div class="clash-card__unit-name">Bina</div>
+                            <div class="clash-card__unit-description">
+                                These pesky little creatures only have eyes for one thing: LOOT! They are faster than a Spring Trap, and
+                                their
+                                hunger for resources is limitless.<br>
+                                <a href="/Build/List" type="button" class="btn btn-primary">Görüntüle</a>
+                            </div>
+                            <div class="clash-card__unit-stats clash-card__unit-stats--goblin clearfix">
+                                <div class="one-third">
+                                    <div class="stat">30</div>
+                                    <div class="stat-value">Oda</div>
+                                </div>
+                                <div class="one-third">
+                                    <div class="stat">32</div>
+                                    <div class="stat-value">Kat</div>
+                                </div>
+                                <div class="one-third no-border">
+                                    <div class="stat">100</div>
+                                    <div class="stat-value">Bina</div>
+                                </div>
+
+                            </div>
+
+                        </div> <!-- end clash-card goblin-->
+                    </div> <!-- Bina -->
+                    <div class="wrapper">
+                        <div class="clash-card wizard">
+                            <div class="clash-card__image clash-card__image--wizard">
+                                <img src="~/Content/other/İmg/1469435287_Adana_Entegre_Saglik_Kampusu_giris.jpg" alt="wizard" class="img" />
+                            </div>
+                            <div class="clash-card__level clash-card__level--wizard">Lokasyon</div>
+                            <div class="clash-card__unit-name">Kat</div>
+                            <div class="clash-card__unit-description">
+                                The Wizard is a terrifying presence on the battlefield. Pair him up with some of his fellows and cast
+                                concentrated blasts of destruction on anything, land or sky!<br>
+                                <a href="/Floor/List" type="button" class="btn btn-primary">Görüntüle</a>
+                            </div>
+                            <div class="clash-card__unit-stats clash-card__unit-stats--wizard clearfix">
+                                <div class="one-third">
+                                </div>
+                                <div class="one-third">
+                                    <div class="stat">16</div>
+                                    <div class="stat-value">Oda</div>
+                                </div>
+                                <div class="one-third no-border">
+                                    <div class="stat">4000</div>
+                                    <div class="stat-value">Kat</div>
+                                </div>
+
+                            </div>
+                        </div> <!-- end clash-card wizard-->
+                    </div> <!-- Kat -->
+                </div>
+            </div>
+            <!-- lokasyon -->
+            <div class="col-xs-6">
+                <!-- Personel -->
+                <div class="slide-container">
+                    <div class="wrapper">
+                        <div class="clash-card barbarian">
+                            <div class="clash-card__image clash-card__image--barbarian">
+                                <img src="~/Content/other/İmg/akbank-personel-alimi-2019.jpg" alt="giant" class="img1" />
+                            </div>
+                            <div class="clash-card__level clash-card__level--barbarian">Personel</div>
+                            <div class="clash-card__unit-name">Kullanıcılar</div>
+                            <div class="clash-card__unit-description">
+                                Birimde çalışan personellerin listesi ve aktif veya sistem dışı bilgilerini görüntüleyebilirsiniz<br>
+                                <a href="/User/List" type="button" class="btn btn-primary">Görüntüle</a>
+                            </div>
+                            <div class="clash-card__unit-stats clash-card__unit-stats--barbarian clearfix">
+                                <div class="one-third">
+                                    <div class="stat">20</div>
+                                    <div class="stat-value">Kayıtlı</div>
+                                </div>
+                                <div class="one-third">
+                                    <div class="stat">16</div>
+                                    <div class="stat-value">Aktif</div>
+                                </div>
+                                <div class="one-third no-border">
+                                    <div class="stat">150</div>
+                                    <div class="stat-value">Kullanıcılar</div>
+                                </div>
+                            </div>
+                        </div> <!-- end clash-card barbarian-->
+                    </div> <!-- Personel -->
+                    <div class="wrapper">
+                        <div class="clash-card archer">
+                            <div class="clash-card__image clash-card__image--barbarian">
+                                <img src="~/Content/other/İmg/avatar-placeholder-300x250.png" alt="giant" class="img1" />
+                            </div>
+                            <div class="clash-card__level clash-card__level--archer">Personel</div>
+                            <div class="clash-card__unit-name">Kullanıcı Rolü</div>
+                            <div class="clash-card__unit-description">
+                                The Archer is a female warrior with sharp eyes. She wears a short, light green dress, a hooded cape, a
+                                leather
+                                belt and an attached small pouch.<br>
+                                <a href="/UserRole/List" type="button" class="btn btn-primary">Görüntüle</a>
+                            </div>
+                            <div class="clash-card__unit-stats clash-card__unit-stats--archer clearfix">
+                                <div class="one-third">
+                                    <div class="stat">25</div>
+                                    <div class="stat-value">Ziyaretci</div>
+                                </div>
+                                <div class="one-third">
+                                    <div class="stat">24</div>
+                                    <div class="stat-value">calısan</div>
+                                </div>
+                                <div class="one-third no-border">
+                                    <div class="stat">300</div>
+                                    <div class="stat-value">Yönetici</div>
+                                </div>
+                            </div>
+                        </div> <!-- end clash-card archer-->
+                    </div> <!-- Rol -->
+                    <div class="wrapper">
+                        <div class="clash-card giant">
+                            <div class="clash-card__image clash-card__image--giant">
+                                <img src="" alt="giant" />
+                            </div>
+                            <div class="clash-card__level clash-card__level--giant">Personel</div>
+                            <div class="clash-card__unit-name">Ünvanlar</div>
+                            <div class="clash-card__unit-description">
+                                Slow, steady and powerful, Giants are massive warriors that soak up huge amounts of damage. Show them a
+                                turret
+                                or cannon and you'll see their fury unleashed!<br>
+                                <a href="/UserTitle/List" type="button" class="btn btn-primary">Görüntüle</a>
+                            </div>
+                            <div class="clash-card__unit-stats clash-card__unit-stats--giant clearfix">
+                                <div class="one-third">
+                                    <div class="stat">2</div>
+                                    <div class="stat-value">Diğer</div>
+                                </div>
+                                <div class="one-third">
+                                    <div class="stat">12</div>
+                                    <div class="stat-value">Misafir</div>
+                                </div>
+                                <div class="one-third no-border">
+                                    <div class="stat">2250</div>
+                                    <div class="stat-value">Kayıtlı</div>
+                                </div>
+                            </div>
+                        </div> <!-- end clash-card giant-->
+                    </div> <!-- Ünvan-->
+                    <div class="wrapper">
+                        <div class="clash-card goblin">
+                            <div class="clash-card__image clash-card__image--goblin">
+                                <img src="~/Content/other/İmg/Contacts-icon.png" alt="goblin" class="img" />
+                            </div>
+                            <div class="clash-card__level clash-card__level--goblin">Personel</div>
+                            <div class="clash-card__unit-name">İletişim Bilgileri</div>
+                            <div class="clash-card__unit-description">
+                                These pesky little creatures only have eyes for one thing: LOOT! They are faster than a Spring Trap, and
+                                their
+                                hunger for resources is limitless.<br>
+                                <a href="/UserContact/List" type="button" class="btn btn-primary">Görüntüle</a>
+                            </div>
+                            <div class="clash-card__unit-stats clash-card__unit-stats--goblin clearfix">
+                                <div class="one-third">
+                                    <div class="stat">30</div>
+                                    <div class="stat-value">Diğer</div>
+                                </div>
+                                <div class="one-third">
+                                    <div class="stat">32</div>
+                                    <div class="stat-value">Misafir</div>
+                                </div>
+                                <div class="one-third no-border">
+                                    <div class="stat">100</div>
+                                    <div class="stat-value">Kayıtlı</div>
+                                </div>
+                            </div>
+                        </div> <!-- end clash-card goblin-->
+                    </div> <!-- İletişim -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Personel -->
+    <div class="col-xs-12">
+        <!-- Cihazlar -->
+        <div class="slide-container">
+            <div class="wrapper">
+                <div class="clash-card barbarian">
+                    <div class="clash-card__image clash-card__image--barbarian">
+                        <img src="~/Content/other/İmg/google-latitude-logo.jpg" alt="giant" class="img" />
+                    </div>
+                    <div class="clash-card__level clash-card__level--barbarian">Cihaz</div>
+                    <div class="clash-card__unit-name">Cihazlar</div>
+                    <div class="clash-card__unit-description">
+                        The Barbarian is a kilt-clad Scottish warrior with an angry, battle-ready expression, hungry for
+                        destruction.
+                        He has Killer yellow horseshoe mustache.<br>
+                        <a href="/Device/List" type="button" class="btn btn-primary">Görüntüle</a>
+                    </div>
+                    <div class="clash-card__unit-stats clash-card__unit-stats--barbarian clearfix">
+                        <div class="one-third">
+                            <div class="stat">20</div>
+                            <div class="stat-value">Diğer</div>
+                        </div>
+                        <div class="one-third">
+                            <div class="stat">16</div>
+                            <div class="stat-value">Aktif</div>
+                        </div>
+                        <div class="one-third no-border">
+                            <div class="stat">150</div>
+                            <div class="stat-value">Kayıtlı</div>
+                        </div>
+                    </div>
+                </div> <!-- end clash-card barbarian-->
+            </div> <!--Cihazlar-->
+        </div>
+    </div> <!-- Cihazlar -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js'></script>
+    <script src="~/Content/other/HomaPage.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</body>
+</html>

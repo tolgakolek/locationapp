@@ -1,0 +1,385 @@
+﻿@model List<LocationApp.Data.Dto.UserDto>
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Css.cshtml")
+    <style>
+        #heatmapContainerWrapper {
+            position: absolute;
+            border: 2px solid #c3c3c3;
+        }
+
+        #heatmapContainer {
+            width: 100%;
+            height: 100%;
+        }
+
+        #heatmapLegend {
+            background: white;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 0.5px;
+        }
+
+        #myCanvas {
+        }
+    </style>
+}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row top_tiles">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Personel Performans Grafiği <small>Aktif Çalışma Saatleri</small></h2>
+                            <div class="filter">
+                                <div id="reportrange" class="pull-right"
+                                     style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                    <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="col-md-9 col-sm-12 col-xs-12">
+                                <div class="demo-container" style="height:280px">
+                                    <div id="chart_plot_02" class="demo-placeholder"></div>
+                                </div>
+                                <div class="tiles">
+                                    <div class="col-md-4 tile">
+                                        <span>Bina içi geçirilen toplam saat:</span>
+                                        <h2 class="mekanici"></h2>
+                                        <span class="sparkline11 graph" style="height: 160px;">
+                                            <canvas width="200" height="60"
+                                                    style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-4 tile">
+                                        <span>Konum dışı harcanan saat:</span>
+                                        <h2 class="times">12</h2>
+                                        <span class="sparkline22 graph" style="height: 160px;">
+                                            <canvas width="200" height="60"
+                                                    style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-4 tile">
+                                        <span>Toplam Verimlilik Puanı</span>
+                                        <h2>78/100</h2>
+                                        <span class="sparkline11 graph" style="height: 160px;">
+                                            <canvas width="200" height="60"
+                                                    style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-12 col-xs-12">
+                                <div>
+                                    <div class="x_title">
+                                        <h2>Personeller</h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <ul class="list-unstyled top_profiles scroll-view">
+                                        <li class="media event">
+                                            <a class="pull-left border-aero profile_thumb">
+                                                <i class="fa fa-user aero"></i>
+                                            </a>
+                                            <div class="media-body">
+                                                @Html.DropDownList("UserID", new SelectList(ViewBag.Users, "UserID", "FullName", 0), new { @class = "form-control", @onchange = "dropValidation();" })
+                                                <p><u>Cihazlar</u></p><h4 class="device"></h4>
+                                                <h4 class="device"></h4>
+                                                <h4 class="device"></h4>
+                                                <h4 class="device"></h4>
+                                                <p> <u>Oda </u></p><h4 class="Room"></h4>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Isı Haritası Ve Konum Bilgileri <small></small></h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="row" style="border-bottom: 1px solid #E0E0E0; padding-bottom: 5px; margin-bottom: 5px;">
+                                <div class="col-md-7">
+                                    <div id="heatmapContainerWrapper">
+                                        <div id="heatmapContainer">
+                                        </div>
+                                        <div id="heatmapLegend">
+                                            <img id="gradient" src="" style="width:100%" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5" id="Canvas">
+                                    <canvas id="myCanvas" class="pull-right" style=" display:block">
+                                        Your browser does not support the canvas element.
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+<!-- Modal -->
+@section Scripts{
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Js.cshtml")
+    <script>
+        $('#UserID').select2();
+        var Location_X;
+        var Location_Y;
+        var i = 0;
+        var spl;
+        var j = 0;
+        var room;
+        var dev;
+        var canvas1;
+        var ctx;
+        $("#UserID").change(function () {
+            var user = $("#UserID").val();
+            $.ajax({
+                url: '/UserInfo/GetUserInfo',
+                type: "GET",
+                dataType: "json",
+                data: { UserID: user },
+                success: function (data) {
+                    $.each(data, function () {
+                        $(".device").each(function () {
+                            spl = data[i].DeviceDto.Name;
+                            $(this).text(spl);
+                            i++;
+                            dev = data[i].DeviceID;
+                            room();
+                        });
+                    });
+                }
+            });
+            function room() {
+                $.ajax({
+                    url: '/UserInfo/GetRoomInfo',
+                    type: "GET",
+                    dataType: "json",
+                    data: { DeviceID: dev },
+                    success: function (data) {  
+                        $.each(data, function () {
+                            $(".Room").each(function () {
+                                room = data[j].RoomDto.Name;
+                                Location_X = data[j].Location_X;
+                                Location_Y = data[j].Location_Y;
+                                canvas1 = document.getElementById("myCanvas");
+                                ctx = canvas1.getContext("2d");
+                                ctx.fillStyle = "#FF0000";
+                                document.getElementById('heatmapContainerWrapper').setAttribute("style", "width:" + Location_X / 2 + "px" + "; height:" + Location_Y / 2 + "px");
+
+                                document.getElementById('myCanvas').setAttribute("style", "width:" + Location_X / 2 + "px" + "; height:" + Location_Y / 2 + "px");
+                                $("#Canvas").css({
+                                    "border-color": "",
+                                    "border-width": "2px",
+                                    "border-style": "solid",
+                                });
+                                var image = "/Content/other/odaplani.jpg";
+                                $('#Canvas').css({
+                                    'background-image': 'url(' + image + ' )','background-size': '100%'});
+                                $('#heatmapContainerWrapper').css({
+                                    'background-image': 'url(' + image + ' )', 'background-size': '100%'
+                                });
+                                $(this).text(room);
+                                j++;
+                            });
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+    <script>
+        var t = [];
+        var end;
+        var start;
+
+        function init_daterangepicker() {
+            if (typeof ($.fn.daterangepicker) === 'undefined') { return; }
+            console.log('init_daterangepicker');
+            var cb = function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            };
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+            today = mm + '/' + dd + '/' + yyyy;
+            var optionSet1 = {
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2019',
+                maxDate: today,
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                opens: 'left',
+                buttonClasses: ['btn btn-default'],
+                applyClass: 'btn-small btn-primary',
+                cancelClass: 'btn-small',
+                format: 'YYYY/MM/DD',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Submit',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom',
+                    daysOfWeek: ['Pz', 'Pzt', 'Sa', 'Çar', 'Prş', 'Cu', 'Cmt'],
+                    monthNames: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+                    firstDay: 1
+                }
+            };
+            $('#reportrange span').html(moment().subtract(29, 'days').format('YYYY M, DDDD') + ' - ' + moment().format('YYYY M, DDDD'));
+            $('#reportrange').daterangepicker(optionSet1, cb);
+            $('#reportrange').on('show.daterangepicker', function () {
+                console.log("show event fired");
+            });
+            $('#reportrange').on('hide.daterangepicker', function () {
+                console.log("hide event fired");
+            });
+            function stringToDate(s) {
+                var dateParts = s.split(' ')[0].split('-');
+                var timeParts = s.split(' ')[1].split(':');
+                var d = new Date(dateParts[0], --dateParts[1], dateParts[2]);
+                d.setHours(timeParts[0], timeParts[1], timeParts[2])
+                return d
+            }
+            $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+                var i = 0;
+                var j = 0;
+                var spl;
+
+                start = picker.startDate.toJSON().slice(0, 19).replace('T', ' ');
+                end = picker.endDate.toJSON().slice(0, 19).replace('T', ' ');
+                var date = (stringToDate(end) - stringToDate(start));
+                //setInterval(function () {
+                $.ajax({
+                    url: '/UserInfo/GetDateByBeetween',
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        Start: start,
+                        End: end
+                    },
+                    success: function (data) {
+                        $.each(data, function () {
+                            spl = data[i].Point_Location.split(",");
+                            if (date <= 604799000) {
+                                ctx.fillRect(spl[0] / 2, spl[1] / 2, 3, 3);
+
+                            }
+                            else {
+                                t.push({ x: spl[0], y: spl[1], value: 120, radius: 10 });
+                                heat();
+                            }
+                            $(".mekanici").text(data.length);
+
+
+                            i++;
+                        });
+                        $.each(data, function () {
+                            var d = new Date(parseInt(data[j].CreationDate.toString().substring(6, 19)));
+                            var a = d.toLocaleTimeString();
+                            j++;
+                        });
+                    }
+                });
+                //}, 1000);
+
+            });
+            $('#reportrange').on('cancel.daterangepicker', function (ev, picker) {
+                console.log("cancel event fired");
+            });
+            $('#options1').click(function () {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+            });
+            $('#options2').click(function () {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+            });
+            $('#destroy').click(function () {
+                $('#reportrange').data('daterangepicker').remove();
+            });
+
+            $("#btnSubmit").click(function () {
+                alert("button");
+            });
+        }
+
+        function heat() {
+
+            function $(id) {
+                return document.getElementById(id);
+            };
+            var legendCanvas = document.createElement('canvas');
+            legendCanvas.width = 100;
+            legendCanvas.height = 10;
+            var legendCtx = legendCanvas.getContext('2d');
+            var gradientCfg = {};
+            function updateLegend(data) {
+                if (data.gradient != gradientCfg) {
+                    gradientCfg = data.gradient;
+                    var gradient = legendCtx.createLinearGradient(1, 1, 100, 1);
+                    for (var key in gradientCfg) {
+                        gradient.addColorStop(key, gradientCfg[key]);
+                    }
+                    legendCtx.fillStyle = gradient;
+                    legendCtx.fillRect(1, 0, 100, 10);
+                    $('gradient').src = legendCanvas.toDataURL();
+                }
+            };
+            var heatmap = h337.create({
+                container: document.getElementById('heatmapContainer'),
+                maxOpacity: .5,
+                radius: 10,
+                blur: .75,
+                onExtremaChange: function onExtremaChange(data) {
+                    updateLegend(data);
+                }
+            });
+            var extremas = [(Math.random() * 10) >> 0, (Math.random() * 10) >> 0];
+            var max = Math.max.apply(Math, extremas);
+            var min = Math.min.apply(Math, extremas);
+            var generate = function () {
+
+
+                var init = +new Date;
+
+                heatmap.setData({
+                    min: min,
+                    max: max,
+                    data: t
+                });
+            };
+            generate();
+            document.getElementById('heatmapContainerWrapper').onclick = function () { generate(); };
+        }
+
+
+
+    </script>
+}

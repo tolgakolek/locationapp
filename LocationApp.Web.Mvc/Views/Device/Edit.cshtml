@@ -1,0 +1,250 @@
+﻿@model LocationApp.Data.Dto.DeviceDto
+@{
+    /**/
+
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles{
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Css.cshtml")
+}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Cihazlar</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Cihaz<small></small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    @using (Html.BeginForm("Edit", "Device", FormMethod.Post, new { @class = "form-horizontal form-label-left" }))
+                    {
+                        @Html.HiddenFor(Model => Model.UserID)
+                        @Html.HiddenFor(model => model.DeviceID)
+                        @Html.HiddenFor(model => model.RoomID)
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="siteID">Cihaz Tipi :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.DropDownList("DeviceTypeID", new SelectList(ViewBag.DeviceTypes, "DeviceTypeID", "Name", ViewBag.DeviceTypeID), new { @class = "form-control", @onchange = "dropValidation();" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                                Cihaz Başlık : <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gps">
+                                Cihaz Özellikleri : <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.Properties, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gps">
+                                Cihaz Teknolojisi : <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.Technology, new { @class = "form-control col-md-7 col-xs-12", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal2" id="modal">İlişkilendir</button>
+                                <button type="submit" class="btn btn-success pull-right" name="save">Kaydet</button>
+                                <a href="/Device/List" class="btn btn-primary pull-right" type="button">Listeleye Dön</a>
+                            </div>
+                        </div>
+                    }
+                    <div class="success">
+                        @Html.Raw(ViewBag.Message)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+<!--İlişkilendirme modal-->
+<div class="modal fade bs-example-modal-sm" id="modal2" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">İlişkilendirme :</h4>
+            </div>
+            <div class="custom-control custom-radio" id="modalbtn">
+                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="1">
+                <label class="custom-control-label" for="customRadio1">Kulanıcı İle Cihaz Eşletir</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="2">
+                <label class="custom-control-label" for="customRadio2">Oda İle Cihaz Eşletir</label>
+            </div>
+            <div class="modal-body">
+                <div class="item form-group">
+                    <label id="selectfor" style="display:none;" for="inputsm">Kullanıcılar</label>
+                    <select style="display:none;" id="select"></select>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="item form-group">
+                    <label style="display:none;" id="selectfor1" for="inputsm">Odalar</label>
+                    <select style="display:none;" id="select1"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+                <button name="pair" type="button" class="btn btn-primary" onclick="Add()">Ekle</button>
+            </div>
+            <script>
+                var validator = new FormValidator();
+                document.forms[0].onsubmit = function (e) {
+                    var validatorResult = validator.checkAll(this);
+                    return !!validatorResult.valid;
+                };
+            </script>
+        </div>
+    </div>
+</div>
+<!--İlişkilendirme modal-->
+@section Scripts{
+    @Html.Partial("/Views/Shared/Partials/DataTable/_Js.cshtml")
+    <script>
+        $("div.success").fadeIn(100).delay(1500).fadeOut(400);
+        $(document).ready(function () {
+            var build = $("#BuildID").val();
+            if (build != 0) {
+                $("button[name=save]").prop('disabled', false);
+            }
+            else {
+                $("button[name=save]").prop('disabled', true);
+            }
+        });
+        function dropValidation() {
+            var build = $("#BuildID").val();
+            if (build != 0) {
+                $("button[name=save]").prop('disabled', false);
+            }
+            else {
+                $("button[name=save]").prop('disabled', true);
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("input[name='customRadio']").change(function () {
+
+                var val = $('input[name=customRadio]:checked').val();
+                if (val != 2) {
+                    $('#customRadio2').parent().hide();
+                    $("#selectfor").show(500);
+                    $("#select1").hide();
+                    $("#select").show(500);
+                    $("#selectfor1").hide();
+                    $.ajax({
+                        url: '/Device/GetUsers',
+                        type: "GET",
+                        dataType: "json",
+                        data: "check",
+                        success: function (data) {
+                            if (data != null) {
+                                $.each(data, function () {
+                                    $('#select').append('<option value=' + this.UserID + '>' + this.Name + '</option>');
+                                });
+                            }
+                            else {
+                                $('#select').append('<option value=' + 0 + '>' + "Seçiniz" + '</option>');
+                            }
+                        }
+                    });
+                }
+                else {
+                    $('#customRadio1').parent().hide();
+                    $("#selectfor1").show(500);
+                    $("#select").hide();
+                    $("#select1").show(500);
+                    $("#selectfor").hide();
+                    $.ajax({
+                        url: '/Device/GetRooms',
+                        type: "GET",
+                        dataType: "json",
+                        data: "check",
+                        success: function (data) {
+                            $('#RoomID').empty();
+                            if (data != null) {
+                                $.each(data, function () {
+                                    $('#select1').append('<option value=' + this.RoomID + '>' + this.Name + '</option>');
+                                });
+                            }
+                            else {
+                                $('#select1').append('<option value=' + 0 + '>' + "Seçiniz" + '</option>');
+                            }
+                        }
+                    });
+                }
+
+            });
+        });
+      
+        function Add() {
+
+            var userID = $("#select").val();
+            var RoomID = $("#select1").val();
+            var val = $('input[name=customRadio]:checked').val();
+            var deviceID = $("#DeviceID").val();
+            if (val != 2) {
+                $.ajax({
+                    url: '/Device/AddDeviceUser',
+                    type: "POST",
+                    dataType: "json",
+                    data: { userID: userID, DeviceID: deviceID },
+                    success: function (result) {
+                        if (result.Result) {
+                            alert("İşlem Başarılı");
+                            location.reload();
+                        } else {
+                            alert(result.ResultDescription);
+                        }
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    url: '/Device/AddDeviceRoom',
+                    type: "POST",
+                    dataType: "json",
+                    data: { RoomID: RoomID, DeviceID: deviceID },
+                    success: function (result) {
+                        if (result.Result) {
+                            alert("İşlem Başarılı");
+                            location.reload();
+                        } else {
+                            alert(result.ResultDescription);
+                        }
+                    }
+                });
+            }
+            $('input[name=customRadio]:checked').removeAttr("checked");
+
+        }
+        $("#modal").click(function () {
+
+        });
+  
+    </script>
+}
